@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="1200" height="900">이 브라우저는 캔버스를 지원하지 않습니다.
+    </canvas>
+    <script>
+        const canvas = document.querySelector('canvas');
+        const context = canvas.getContext('2d');
+        console.log(context);
+        //fillRect(), clearRect(), strokeRect()
+        context.fillRect(50, 50, 100, 100);
+        context.clearRect(60, 60, 60, 60);
+        context.strokeRect(200, 200, 40, 40);
+
+        //beginPath(), closePath(), moveTo(), lineTo(), stroke()
+
+        context.beginPath();
+        context.strokeStyle = 'blue';
+        context.moveTo(20, 20);
+        context.lineTo(200, 20);
+        context.closePath();
+        context.stroke();
+
+        context.strokeStyle = 'red';
+        context.beginPath();
+        context.moveTo(40, 40);
+        context.lineTo(500, 500);
+        context.closePath();
+        context.stroke();
+
+        //arc()
+        // fillStyle, strokeStyle, fill(), stroke();
+        context.beginPath();
+        context.strokeStyle = 'green';
+        context.arc(400, 400, 50, 0, 2 * Math.PI, false);
+        context.closePath();
+        context.stroke();
+
+        context.fillStyle = 'yellow';
+        context.beginPath();
+        context.arc(800, 600, 50, 0, Math.PI, false);
+        context.closePath();
+        context.fill();
+    </script>
+</body>
+
+</html>

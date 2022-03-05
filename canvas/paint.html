@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image</title>
+    <style>
+        canvas {
+            background: #eee;
+        }
+
+        .container {
+            margin-bottom: 10px;
+        }
+
+        .control-container {
+            display: inline-block;
+        }
+
+        .control {
+            width: 2rem;
+            height: 2rem;
+            /* margin: 0.1rem; */
+            border: 0;
+            line-height: 0;
+            vertical-align: text-top;
+            cursor: pointer;
+        }
+
+        .save {
+            width: 7rem;
+        }
+
+        .color[data-color='black'] {
+            background-color: black;
+        }
+
+        .color[data-color='blue'] {
+            background-color: blue;
+        }
+
+        .color[data-color='red'] {
+            background-color: red;
+        }
+
+        .color[data-color='green'] {
+            background-color: green;
+        }
+
+        .image {
+            background: url(./rhino.png) no-repeat;
+        }
+
+        .save-container {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Paint Brush</h1>
+    <div class="container">
+        <div class="control-container">
+            <button class="control color" data-type='color' data-color="red"></button>
+            <button class='control color' data-type='color' data-color="blue"></button>
+            <button class='control color' data-type='color' data-color="green"></button>
+            <button class='control color' data-type='color' data-color="black"></button>
+            <button class='control image' data-type='image'></button>
+        </div>
+        <div class="save-container">
+            <button class="control save">download</button>
+        </div>
+    </div>
+    <canvas width="800" height="600">이 브라우저는 캔버스를 지원하지 않습니다.
+    </canvas>
+    <div class="result"></div>
+    <script>
+        const canvas = document.querySelector('canvas');
+        const context = canvas.getContext('2d');
+        let mouseDown = false;
+        let brush = 'color' //color, image
+
+        const imageElement = new Image();
+        imageElement.src = './rhino.png';
+
+        document.querySelector('.save-container').addEventListener('click', (e) => {
+            const url = canvas.toDataURL('image/png');
+            console.log(url)
+            const image = new Image();
+            image.src = url;
+            document.querySelector('.result').appendChild(image);
+        });
+        document.querySelector('.control-container').addEventListener('click', (e) => {
+            brush = e.target.getAttribute('data-type');
+            console.log(brush);
+            context.fillStyle = e.target.getAttribute('data-color');
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!mouseDown) return;
+            switch (brush) {
+                case 'color':
+                    context.beginPath();
+                    context.arc(e.layerX, e.layerY, 10, 0, Math.PI * 2, true);
+                    context.closePath();
+                    context.fill();
+                    break;
+                case 'image':
+                    context.drawImage(imageElement, e.layerX, e.layerY, 30, 30);
+                    break;
+            }
+        });
+        canvas.addEventListener('mousedown', (e) => {
+            mouseDown = true;
+        });
+        canvas.addEventListener('mouseup', (e) => {
+            mouseDown = false;
+        });
+
+
+    </script>
+</body>
+
+</html>
