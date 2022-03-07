@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .canvas {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>transform</h1>
+    <canvas class="canvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.querySelector('.canvas');
+
+        /** @type {CanvasRenderingContext2D} */
+        const context = canvas.getContext('2d');
+
+        // translate() : 축 이동
+        context.translate(400, 200);
+        function draw() {
+
+            context.strokeRect(-50, -50, 100, 100);
+
+            // scale(): 축 확대 축소
+            context.scale(1.01, 1.01);
+            context.rotate(Math.PI / 120);
+            // context.strokeRect(-50, -50, 100, 100);
+            // context.scale(1.1, 1.1);
+            // context.strokeRect(-50, -50, 100, 100);
+            // context.strokeRect(-50, -50, 110, 110);
+
+            // setTransform() : 축 설정
+            // context.setTransform(1, 0, 0, 1, 0, 0);
+            // context.strokeRect(-50, -50, 100, 100);
+
+            // context.scale(1.2, 1.2);
+            // context.strokeRect(-50, -50, 100, 100);
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+
+</html>

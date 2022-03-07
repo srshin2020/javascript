@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .canvas {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>transform</h1>
+    <canvas class="canvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.querySelector('.canvas');
+
+        /** @type {CanvasRenderingContext2D} */
+        const context = canvas.getContext('2d');
+
+        context.fillRect(100, 100, 200, 200);
+        context.fillStyle = 'orange';
+        context.fillRect(100, 100, 200, 200);
+
+        //현재의 context 상태를 저장
+        context.save();
+        context.beginPath();
+        context.fillStyle = 'blue';
+        context.arc(200, 200, 50, 0, Math.PI * 2, false);
+        context.closePath();
+        context.fill();
+
+        //저장된 context 상태 복구
+        context.restore();
+        context.beginPath();
+        context.arc(400, 400, 50, 0, Math.PI * 2, false);
+        context.closePath();
+
+        context.fill();
+
+
+    </script>
+</body>
+
+</html>

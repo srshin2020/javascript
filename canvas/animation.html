@@ -26,11 +26,16 @@
 
         function draw() {
             xPos %= canvas.width;
+
+            //clearRect(): 지우기 
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.beginPath();
             context.arc(xPos++, 100, 20, 0, 2 * Math.PI, false);
             context.closePath();
             context.stroke();
+
+            //animation 
+            //1초에 60번 호출됨
             timerId = requestAnimationFrame(draw);
         }
         //click시  animation 멈춤
