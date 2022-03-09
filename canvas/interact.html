@@ -31,6 +31,7 @@
         let step = 1;
 
         function render() {
+            console.log('render');
             context.clearRect(0, 0, canvas.width, canvas.height);
             boxes.forEach((element) => {
                 element.draw();
@@ -47,11 +48,14 @@
                 case 2:
                     panel.scale += (1 - panel.scale) * 0.1;
                     panel.angle = panel.scale * Math.PI * 4;
-                    panel.scale = panel.scale >= 1 ? 1 : panel.scale;
+                    panel.scale = panel.scale >= 0.9999 ? 1 : panel.scale;
                     panel.draw(selected.id);
                     break;
             }
-            requestAnimationFrame(render);
+            let id = requestAnimationFrame(render);
+            if (panel.scale == 1) {
+                cancelAnimationFrame(id);
+            }
         }
 
         canvas.addEventListener('click', (e) => {
@@ -66,6 +70,7 @@
             });
             if (step == 2) {
                 step = 1;
+                render();
             } else if (selected) {
                 step = 2;
             }
