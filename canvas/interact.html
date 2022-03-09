@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .canvas {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Interact</h1>
+    <canvas class="canvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.querySelector('.canvas');
+        /** @type {CanvasRenderingContext2D} */
+        const context = canvas.getContext('2d');
+        context.font = 'bold 16px sans-serif';
+        const mouse = { x: 0, y: 0 };
+
+        class Box {
+            static index = 0;
+            constructor() {
+                Box.index++;
+                this.id = Box.index;
+                this.speed = Math.random() * 4 + 1;
+                this.width = Math.random() * (canvas.width / 5) + 60;
+                this.height = Math.random() * canvas.height / 5 + 50;
+                this.x = Math.random() * (canvas.width - this.width);
+                this.y = Math.random() * (canvas.height - this.height);
+            }
+            draw() {
+                context.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                context.fillRect(this.x, this.y, this.width, this.height);
+                context.fillStyle = '#fff';
+                context.fillText(this.id, this.x + this.width / 2, this.y + this.height / 2)
+            }
+        }
+
+        function render() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            boxes.forEach((element) => {
+                element.draw();
+                element.x += element.speed;
+
+                if (element.x >= canvas.width)
+                    element.x = - element.width;
+            });
+            requestAnimationFrame(render);
+        }
+
+        canvas.addEventListener('click', (e) => {
+            mouse.x = e.layerX;
+            mouse.y = e.layerY;
+            let top = 0;
+            boxes.forEach((element) => {
+                if (mouse.x > element.x && mouse.x < (element.x + element.width) &&
+                    mouse.y > element.y && mouse.y < (element.y + element.height)) {
+                    top = element.id;
+                }
+            });
+            if (top != 0) {
+                console.log(top);
+            }
+        })
+
+        const boxes = [];
+        for (let i = 0; i < 10; i++) {
+            let box = new Box();
+            boxes.push(box);
+        }
+        render();
+
+
+    </script>
+
+</body>
+
+</html>
