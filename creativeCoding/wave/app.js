@@ -7,7 +7,7 @@ class App {
         document.body.appendChild(this.canvas);
 
         let colors = ['rgba(200,10,10, 0.3)', 'rgba(10,100,20, 0.3)', 'rgba(10,10,200, 0.3)']
-        this.waveGroup = new WaveGroup(colors.length, colors);
+        this.waveGroup = new WaveGroup(3, colors);
 
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();

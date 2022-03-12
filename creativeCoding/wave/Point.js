@@ -7,7 +7,7 @@ export class Point {
         console.log('this.x, this.y : ', this.x, this.y);
 
         this.fixedY = y;
-        this.speed = 0.1;
+        this.speed = 0.05;
         this.cur = index;
         this.max = Math.random() * 100 + 150;
         console.log('this.max: ', this.max)
@@ -15,7 +15,7 @@ export class Point {
     update() {
         // console.log('Point.update()');
         this.cur += this.speed;
-        this.y = this.fixedY + (Math.sin(this.cur) * this.max);
+        this.y = this.fixedY + Math.sin(this.cur) * this.max;
         // console.log('y', this.y)
     }
 }
