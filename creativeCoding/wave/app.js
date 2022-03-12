@@ -23,7 +23,7 @@ class App {
         this.wave.resize(this.stageWidth, this.stageHeight);
     }
     animate() {
-        console.log('app.animate()');
+        // console.log('app.animate()');
         this.context.clearRect(0, 0, this.stageWidth, this.stageHeight);
         this.wave.draw(this.context);
         requestAnimationFrame(this.animate.bind(this));

@@ -20,7 +20,7 @@ export class Wave {
         this.point = new Point(this.centerX, this.centerY);
     }
     draw(context) {
-        console.log('Wave.draw()');
+        // console.log('Wave.draw()');
 
         context.beginPath();
         context.fillStyle = '#ff0000';
