@@ -1,4 +1,5 @@
 import { Ball } from "./Ball.js";
+import { Bar } from "./Bar.js";
 
 class App {
     constructor() {
@@ -7,7 +8,8 @@ class App {
         document.body.appendChild(this.canvas);
 
         window.addEventListener('resize', this.resize.bind(this), false);
-        this.ball = new Ball(100, 15);
+        this.ball = new Ball(50, 15);
+        // this.bar = new Bar(0, 0, 300, 300);
         this.resize();
         requestAnimationFrame(this.animate.bind(this));
     }
@@ -23,6 +25,7 @@ class App {
     animate(t) {
         this.context.clearRect(0, 0, this.stageWidth, this.stageHeight);
         this.ball.draw(this.context);
+        // this.bar.draw(this.context);
 
         window.requestAnimationFrame(this.animate.bind(this));
 
