@@ -1,0 +1,16 @@
+{
+  "name": "jsdoc",
+  "version": "1.0.0",
+  "description": "- https://www.youtube.com/watch?v=YK-GurROGIg&t=565s     - JavaScript 문서화 | JSDoc 단기 집중 과정     - Traversy Media",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc" : "jsdoc -c jsdoc.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jsdoc": "^3.6.10"
+  }
+}
