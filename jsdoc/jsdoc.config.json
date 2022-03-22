@@ -1,5 +1,5 @@
 {
-    "plugins": [],
+    "plugins": [], 
     "recurseDepth": 10,
     "source": {
         "include": "./src",
@@ -19,7 +19,8 @@
         }
     },
     "opts": {
-        "template": "templates/default",
+        // "template": "templates/silent",
+        "template": "node_modules/better-docs",
         "encoding": "utf8",  
         "destination": "./docs/",         
         "recurse": true,
