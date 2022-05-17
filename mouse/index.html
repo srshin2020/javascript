@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="myDiv">
+    </div>
+    <span id="mySpan"></span>
+</body>
+<script>
+    const div = document.querySelector("#myDiv");
+    const span = document.querySelector("#mySpan");
+    div.style.backgroundColor = "grey";
+    div.style.width = "400px";
+    div.style.height = "200px";
+
+    div.addEventListener("click", e => { console.log(e); });
+    div.addEventListener("mouseover", e => {
+        console.log(e);
+        div.style.backgroundColor = "purple";
+    });
+    div.addEventListener("mouseleave", e => {
+        console.log(e);
+        div.style.backgroundColor = "grey";
+    });
+    div.addEventListener("mouseup", e => {
+        console.log(e);
+        div.style.backgroundColor = "grey";
+    });
+    div.addEventListener("mousedown", e => {
+        console.log(e);
+        div.style.backgroundColor = "red";
+    });
+    div.addEventListener("mousemove", e => {
+        // console.log(e);
+        span.innerHTML = `${e.x} , ${e.y}`;
+    });
+    div.addEventListener("dblclick", e => { console.log(e); console.log("double clicked") });
+    div.addEventListener("contextmenu", e => { console.log(e); console.log("context menu") });
+
+</script>
+
+</html>
