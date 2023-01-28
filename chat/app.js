@@ -13,12 +13,13 @@ const PORT = process.env.PORT || 5000;
 
 io.on('connection', (socket) => {
     socket.on('chatting', (data) => {
-        const newData = Object.assign({}, data, { time: moment(new Date()).format('h:ss a') });
+        const newData = Object.assign({}, data, {
+            time: moment(new Date()).format('h:ss a'),
+        });
         console.log(newData);
         io.emit('chatting', newData);
     });
 });
-
 server.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
-})
+});

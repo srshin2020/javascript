@@ -12,7 +12,7 @@
     <div class="wrapper">
       <div class="user-container">
         <label for="nickname">대화명</label>
-        <input type=" text" id="nickname" />
+        <input type=" text" id="nickname" class="ee" />
       </div>
       <div class="display-container">
         <ul class="chatting-list"></ul>
@@ -24,7 +24,12 @@
         </span>
       </div>
     </div>
-    <script src="/socket.io/socket.io.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"
+      integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="chat.js"></script>
   </body>
 </html>
