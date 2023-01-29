@@ -1,17 +1,30 @@
+import { loginInit } from './js/login.js';
+import { roomInit } from './js/room.js';
 const nav = document.querySelector('.nav');
 const main = document.querySelector('.main');
 
 const pages = {
-    home: 'pages/home.html',
+    rooms: 'pages/rooms.html',
     about: 'pages/about.html',
     service: 'pages/service.html',
-    contact: 'pages/contact.html',
+    logout: 'pages/logout.html',
 };
+async function init() {
+    const page = await fetch(pages['logout']);
+    const html = await page.text();
+    main.innerHTML = html;
+    loginInit();
+}
+init();
 
 nav.addEventListener('click', async (e) => {
     console.log(e.target.id);
-    const data = await fetch(pages[e.target.id]);
-    const html = await data.text();
+    const page = await fetch(pages[e.target.id]);
+    const html = await page.text();
     main.innerHTML = html;
-    // main.innerHTML = pages[e.target.id];
+    if (e.target.id === 'rooms') {
+        roomInit();
+    } else if (e.target.id === 'logout') {
+        loginInit();
+    }
 });

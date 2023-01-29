@@ -9,7 +9,7 @@ const sockerIO = require('socket.io');
 const io = sockerIO(server);
 
 app.use(express.static(path.join(__dirname, 'src'))); //현재 폴더 + src
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 
 io.on('connection', (socket) => {
     socket.on('chatting', (data) => {

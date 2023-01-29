@@ -5,6 +5,86 @@
     box-sizing: border-box;
     list-style: none;
 }
+body {
+    height: 100vh;
+}
+.main {
+    position: relative;
+    height: 90%;
+}
+
+.room-group {
+    background-color: darkorange;
+    /* margin: 10px; */
+    /* padding: 10px; */
+}
+
+.room-container {
+    display: flex;
+    /* margin: 10px; */
+    /* padding: 10px; */
+    justify-content: space-evenly;
+    background-color: dodgerblue;
+}
+.room-container button {
+    width: 100px;
+}
+
+.chat-room-status-container {
+    background-color: rgb(9, 156, 92);
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    /* margin: 10px; */
+}
+
+.chat-group {
+    /* margin: 10px; */
+    /* padding: 10px; */
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-container {
+    /* height: 400px; */
+    height: 80%;
+    background-color: #b2c7d9;
+    overflow-y: scroll;
+    /* margin: 10px; */
+    /* padding: 10px; */
+}
+
+.room-status-group {
+    /* margin: 10px; */
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+.room-status-box {
+    background-color: blanchedalmond;
+    /* height: 400px; */
+    height: 80%;
+}
+.login-group {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+.login-container {
+    margin: 10px;
+    padding: 10px;
+    background-color: burlywood;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.login-container * {
+    margin: 10px;
+}
+.header {
+    display: none;
+}
 .title {
     color: darkorange;
 }
