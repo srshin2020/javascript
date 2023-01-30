@@ -1,6 +1,6 @@
 import { getMyId } from './login.js';
 let myId = 'unknown';
-let roomNumber = 1;
+let roomNumber = null;
 const socket = io();
 
 async function fetchData() {
@@ -14,7 +14,6 @@ async function fetchData() {
             return res.json();
         })
         .then((text) => {
-            console.log(text);
             data = text;
         });
     return data;
@@ -25,7 +24,6 @@ function makeStatusWithRoomNumber(element) {
         '#chat-group-room-number'
     );
     chatGroupRoomNumber.innerHTML = element.roomId;
-    roomNumber = element.roomId;
     const roomStatusBox = document.querySelector('.room-status-box');
     const members = document.createElement('div');
     members.innerHTML = `참여인원수 ${element.members.length}`;
@@ -58,44 +56,49 @@ function makeRoomContainer(element) {
     enter.className = 'enter';
     enter.innerHTML = '입장';
     enter.addEventListener('click', (e) => {
-        console.log('clicked');
         myId = getMyId();
         makeStatusWithRoomNumber(element);
-        sendData(`${myId}가 입장하였습니다.`);
+        roomNumber = element.roomId;
+        console.log(`${myId} join to room ${roomNumber}`);
+        socket.emit('join-room', myId, roomNumber);
     });
     roomContainer.appendChild(enter);
     roomGroup.appendChild(roomContainer);
 }
 
 async function getDatafromServer() {
-    let data;
-
-    data = await fetchData();
+    const data = await fetchData();
     data.forEach((element) => {
         makeRoomContainer(element);
     });
 }
 
-function sendData(message) {
-    const param = {
-        nickname: myId,
-        message: message,
-    };
-    socket.emit('chatting', param, roomNumber);
-}
 function makeLi(data) {
+    const chatList = document.querySelector('.chatting-list');
+    const displayContainer = document.querySelector('.chat-container');
     const li = document.createElement('li');
     li.classList.add(data.nickname === myId ? 'sent' : 'received');
     li.innerHTML = `<span class="profile">
                     <span class="user">${data.nickname} : </span></span>
                     <span class="message">${data.message}</span> `;
-    return li;
+    chatList.appendChild(li);
+    displayContainer.scrollTo(0, displayContainer.scrollHeight);
+}
+
+function sendData(message) {
+    if (!roomNumber) return;
+    const data = {
+        nickname: myId,
+        message: message,
+    };
+    console.log(data, roomNumber);
+    makeLi(data);
+    socket.emit('chatting', data, roomNumber);
 }
 
 export async function roomInit() {
-    const chatList = document.querySelector('.chatting-list');
     const chatInput = document.querySelector('.chatting-input');
-    const displayContainer = document.querySelector('.chat-container');
+    const exit = document.querySelector('.exit');
 
     getDatafromServer();
     chatInput.addEventListener('keypress', (e) => {
@@ -105,10 +108,24 @@ export async function roomInit() {
         }
     });
 
+    exit.addEventListener('click', (e) => {
+        const chatList = document.querySelector('.chatting-list');
+        const roomStatusBox = document.querySelector('.room-status-box');
+
+        chatList.innerHTML = '';
+        roomStatusBox.innerHTML = '';
+
+        socket.emit('leave-room', myId, roomNumber);
+        // socket.disconnect();
+        roomNumber = null;
+    });
+
+    socket.on('connect', () => {
+        console.log(`you connected with id ${socket.id}`);
+    });
+
     socket.on('chatting', (data) => {
         console.log(data);
-        const li = makeLi(data);
-        chatList.appendChild(li);
-        displayContainer.scrollTo(0, displayContainer.scrollHeight);
+        makeLi(data);
     });
 }

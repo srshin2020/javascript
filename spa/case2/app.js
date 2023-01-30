@@ -26,7 +26,6 @@ app.get('/api/rooms', (req, res) => {
         },
     ]);
 });
-
 app.post('/api/login', (req, res) => {
     console.log('POST api');
     console.log(req.body);
@@ -36,17 +35,40 @@ app.post('/api/login', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
-    socket.on('chatting', (data) => {
-        const newData = Object.assign({}, data);
-        console.log(newData);
-        io.emit('chatting', newData);
+    console.log('a user connected : ', socket.id);
+    socket.on('chatting', (data, room) => {
+        console.log(`data: ${data.nickname} ${data.message},  room: ${room}`);
+        socket.to(room).emit('chatting', data);
     });
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
+    socket.on('join-room', (id, room) => {
+        console.log(`${id} join rooom ${room}`);
+        socket.join(room);
+        socket.to(room).emit('chatting', {
+            nickname: id,
+            message: '가 입장하였습니다',
+        });
+    });
+    socket.on('disconnecting', () => {
+        socket.rooms.forEach((room) =>
+            socket.to(room).emit({
+                nickname: 'unknown',
+                message: '가 연결이 해제되었습니다.',
+            })
+        );
+    });
+    socket.on('leave-room', (id, room) => {
+        console.log(`${id} leave rooom ${room}`);
+        socket.to(room).emit('chatting', {
+            nickname: id,
+            message: '가 퇴장하였습니다',
+        });
+        socket.leave(room);
+    });
 });
+
 server.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
-io.on('connection', (socket) => {});
